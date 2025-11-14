@@ -1,0 +1,71 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "API para validação de NIF angolano",
+        "title": "NIF Validator API",
+        "contact": {},
+        "version": "1.0"
+    },
+    "basePath": "/",
+    "paths": {
+        "/api/v1/validate-nif/{nif}": {
+            "get": {
+                "description": "Verifica se o NIF informado corresponde ao formato válido de Pessoa Singular (14 caracteres) ou Pessoa Coletiva (10 dígitos).",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "nif"
+                ],
+                "summary": "Valida um NIF angolano",
+                "parameters": [
+                    {
+                        "minLength": 1,
+                        "type": "string",
+                        "description": "NIF a ser validado",
+                        "name": "nif",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.Response"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "handlers.Response": {
+            "type": "object",
+            "properties": {
+                "is_valid": {
+                    "type": "boolean"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "nif": {
+                    "type": "string"
+                },
+                "type": {
+                    "description": "pode ser vazio se inválido",
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

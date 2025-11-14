@@ -1,0 +1,48 @@
+basePath: /
+definitions:
+  handlers.Response:
+    properties:
+      is_valid:
+        type: boolean
+      message:
+        type: string
+      nif:
+        type: string
+      type:
+        description: pode ser vazio se inválido
+        type: string
+    type: object
+info:
+  contact: {}
+  description: API para validação de NIF angolano
+  title: NIF Validator API
+  version: "1.0"
+paths:
+  /api/v1/validate-nif/{nif}:
+    get:
+      consumes:
+      - application/json
+      description: Verifica se o NIF informado corresponde ao formato válido de Pessoa
+        Singular (14 caracteres) ou Pessoa Coletiva (10 dígitos).
+      parameters:
+      - description: NIF a ser validado
+        in: path
+        minLength: 1
+        name: nif
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handlers.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.Response'
+      summary: Valida um NIF angolano
+      tags:
+      - nif
+swagger: "2.0"
